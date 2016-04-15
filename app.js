@@ -4,9 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var constants = require('./lib/constants');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var restapi = require('./routes/restapi');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use('/bootstrap', express.static(path.join(__dirname, '/node_modules/bootstr
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/restapi', restapi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

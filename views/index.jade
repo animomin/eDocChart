@@ -1,6 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  button.btn.btn-success 부트스트랩
+  - if(medm_id)
+    p= medm_id
+  - else
+    .form-group
+      label.col-sm-2.control-label 요양기관번호: 
+      .col-sm-5
+        input.input.form-control(type="text",maxlength="8",require,autocomplete="off",value="11111114")
+        span.help-block 요양기관번호를 입력해주세요. 
+        span.help-block 네오소프트뱅크 어플등록관리 사이트에 등록된 기관만 사용이 가능합니다.
+      button.btn.btn-primary(neo-bind="server") 확 인
+block script  
+  script.
+    $(document).on('click', 'button', function(event){
+      var id = $('input').val();
+      $.getJSON('/restapi/serverinfo/' + id, {}, function(json){
+        console.log(json);
+      })
+    });
